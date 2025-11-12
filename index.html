@@ -665,12 +665,6 @@
                     <li><strong>question</strong> or <strong>context</strong>: The original question/decision being explained</li>
                     <li><strong>xai_explanation</strong> or <strong>explanation</strong>: The AI explanation text</li>
                 </ul>
-                <strong style="margin-top: 10px; display: block;">Optional Columns:</strong>
-                <ul>
-                    <li><strong>id</strong>: Unique identifier for each explanation</li>
-                    <li><strong>ai_decision</strong>: The AI's decision/prediction</li>
-                    <li><strong>domain</strong>: Application domain (healthcare, finance, etc.)</li>
-                </ul>
             </div>
 
             <!-- Format Example -->
@@ -748,24 +742,15 @@
                             Add your own evaluation criteria
                         </div>
                         <div class="custom-metric-input">
-                            <input type="text" placeholder="e.g., Technical Accuracy">
+                            <input type="text" placeholder="e.g., Consistency">
                             <button>+ Add</button>
                         </div>
-                        <div class="custom-metric-list">
-                            <div class="custom-metric-tag">
-                                Domain Relevance
-                                <button>×</button>
-                            </div>
-                            <div class="custom-metric-tag">
-                                Jargon Level
-                                <button>×</button>
-                            </div>
-                        </div>
+                        
                     </div>
 
                     <div class="info-box" style="margin-top: 20px;">
                         <strong>💡 Tip:</strong><br>
-                        All metrics use a 7-point Likert scale (1 = Strongly Disagree, 7 = Strongly Agree). Choose metrics that align with your research questions or evaluation goals.
+                        All metrics use a 10-point Likert scale (1 = Strongly Disagree, 10 = Strongly Agree).
                     </div>
                 </div>
             </div>
@@ -782,40 +767,33 @@
                 <div class="form-group">
                     <label>Samples per Persona</label>
                     <select>
-                        <option>10 (Quick test - 5 min)</option>
-                        <option selected>20 (Recommended - 10 min)</option>
-                        <option>30 (High confidence - 15 min)</option>
-                        <option>50 (Research grade - 25 min)</option>
+                        <option>10</option>
+                        <option selected>20</option>
+                        <option>30</option>
+                        <option>50</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label>LLM Model</label>
                     <select>
-                        <option>GPT-4o (Highest quality)</option>
-                        <option selected>GPT-4o-mini (Fast & cost-effective)</option>
+                        <option>GPT-4o</option>
+                        <option selected>GPT-4o-mini</option>
                         <option>Claude Sonnet 4.5</option>
-                        <option>Claude Haiku 4.5 (Fastest)</option>
+                        <option>Claude Haiku 4.5</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label>Temperature</label>
                     <select>
-                        <option>0.7 (More consistent)</option>
-                        <option selected>0.8 (Balanced)</option>
-                        <option>0.9 (More varied)</option>
+                        <option>0.7</option>
+                        <option selected>0.8</option>
+                        <option>0.9</option>
                     </select>
                 </div>
             </div>
 
-            <div class="info-box" style="margin-top: 20px;">
-                <strong>Persona Configuration (Based on Nimmo et al., 2024):</strong><br>
-                • <strong>Age Groups:</strong> Young (25), Middle (45), Older (65)<br>
-                • <strong>Openness Levels:</strong> Low, Medium, High<br>
-                • <strong>Total Combinations:</strong> 9 persona types × samples × metrics × explanations<br>
-                • <strong>Expected Pattern:</strong> Negative age effect, positive openness effect on understanding
-            </div>
 
             <div class="btn-group">
                     <button class="btn">
@@ -833,13 +811,6 @@
                 <div style="font-size: 48px; margin-bottom: 15px;">📊</div>
                 <div style="font-size: 18px; font-weight: 600; margin-bottom: 10px; color: #7f8c8d;">
                     Results will appear here
-                </div>
-                <div style="font-size: 14px;">
-                    After evaluation completes, you'll see:<br>
-                    • Aggregate statistics across all explanations<br>
-                    • Individual reports for each explanation<br>
-                    • Downloadable CSV with all results<br>
-                    • Interactive visualizations and comparisons
                 </div>
             </div>
         </div>
