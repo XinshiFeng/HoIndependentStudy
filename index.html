@@ -606,7 +606,32 @@
             color: white;
         }
 
-        /* Prompt Preview */
+        /* Inline Prompt Preview (inside strategy cards) */
+        .prompt-preview-inline {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                max-height: 0;
+            }
+            to {
+                opacity: 1;
+                max-height: 1000px;
+            }
+        }
+
+        .prompt-preview-inline .prompt-example {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        /* Old modal styles - keeping for compatibility but not used */
         .prompt-preview {
             background: #f8f9fa;
             border: 2px solid #3498db;
@@ -722,7 +747,7 @@
         .form-group select:hover {
             border-color: #3498db;
         }
-        
+
         .btn {
             display: inline-flex;
             align-items: center;
@@ -749,7 +774,12 @@
             cursor: not-allowed;
             transform: none;
         }
-        
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+        }
+
         .btn-secondary {
             background: #95a5a6;
             box-shadow: 0 4px 15px rgba(149, 165, 166, 0.3);
@@ -757,11 +787,7 @@
 
         .btn-secondary:hover {
             background: #7f8c8d;
-        }
-        
-        .btn-group {
-            display: flex;
-            gap: 15px;
+            box-shadow: 0 6px 20px rgba(149, 165, 166, 0.5);
         }
 
         /* Loading spinner */
@@ -989,6 +1015,28 @@
                         Directly embeds age and personality characteristics into the prompt. Simple and effective.
                     </div>
                     <button class="btn-preview" data-strategy="direct">👁️ Preview Prompt</button>
+                    
+                    <!-- Prompt Preview (hidden by default) -->
+                    <div class="prompt-preview-inline" id="preview-direct" style="display: none;">
+                        <div class="prompt-example">
+                            <div class="prompt-section">
+                                <div class="prompt-label">System Instructions:</div>
+                                <div class="prompt-content">You are participating in a research study evaluating AI explanations. Your responses should reflect your age and personality characteristics authentically.</div>
+                            </div>
+                            <div class="prompt-section">
+                                <div class="prompt-label">Persona (Example: Age 25, High Openness):</div>
+                                <div class="prompt-content">You are a 25-year-old person with high openness to new experiences. You enjoy exploring new ideas, appreciate abstract thinking, and are curious about complex explanations.</div>
+                            </div>
+                            <div class="prompt-section">
+                                <div class="prompt-label">Task:</div>
+                                <div class="prompt-content"><strong>Question:</strong> Is this comment toxic?
+
+<strong>AI Explanation:</strong> This comment was flagged as toxic because it contains personal insults.
+
+<strong>Evaluation:</strong> Rate Understanding and Trust on a scale of 1-10.</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Strategy 2: Scenario-Based -->
@@ -1004,6 +1052,22 @@
                         Places the LLM in a realistic scenario context (e.g., "You're reviewing this at work..."). May increase engagement simulation.
                     </div>
                     <button class="btn-preview" data-strategy="scenario">👁️ Preview Prompt</button>
+                    
+                    <div class="prompt-preview-inline" id="preview-scenario" style="display: none;">
+                        <div class="prompt-example">
+                            <div class="prompt-section">
+                                <div class="prompt-label">Scenario Context:</div>
+                                <div class="prompt-content">You are at work, reviewing content moderation decisions made by an AI system. As a 25-year-old team member with high openness to new ideas, you're tasked with evaluating whether the AI's explanations are clear and trustworthy.</div>
+                            </div>
+                            <div class="prompt-section">
+                                <div class="prompt-label">The Explanation:</div>
+                                <div class="prompt-content"><strong>Question:</strong> Is this comment toxic?
+<strong>AI's Explanation:</strong> Flagged due to personal insults and aggressive language.
+
+Rate your understanding and trust (1-10 scale).</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Strategy 3: Chain-of-Thought -->
@@ -1018,6 +1082,26 @@
                         Asks the LLM to explicitly reason through evaluation. More detailed but slower.
                     </div>
                     <button class="btn-preview" data-strategy="cot">👁️ Preview Prompt</button>
+                    
+                    <div class="prompt-preview-inline" id="preview-cot" style="display: none;">
+                        <div class="prompt-example">
+                            <div class="prompt-section">
+                                <div class="prompt-label">Chain-of-Thought Instructions:</div>
+                                <div class="prompt-content">As a 25-year-old person with high openness, think through step-by-step:
+
+<strong>Step 1:</strong> Consider your characteristics (age, personality)
+<strong>Step 2:</strong> Read the explanation carefully
+<strong>Step 3:</strong> Reflect on what makes sense
+<strong>Step 4:</strong> Provide ratings with reasoning</div>
+                            </div>
+                            <div class="prompt-section">
+                                <div class="prompt-label">Explanation to Evaluate:</div>
+                                <div class="prompt-content">Comment flagged as toxic due to personal insults.
+
+Provide Understanding and Trust ratings (1-10) with your reasoning.</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Strategy 4: Comparative -->
@@ -1032,21 +1116,31 @@
                         Explicitly models how different personas react differently. Useful for research validation.
                     </div>
                     <button class="btn-preview" data-strategy="comparative">👁️ Preview Prompt</button>
+                    
+                    <div class="prompt-preview-inline" id="preview-comparative" style="display: none;">
+                        <div class="prompt-example">
+                            <div class="prompt-section">
+                                <div class="prompt-label">Comparative Analysis:</div>
+                                <div class="prompt-content">Consider how people with different characteristics might evaluate this differently:
+
+<strong>Younger (25, high openness):</strong> How would they respond?
+<strong>Older (65, low openness):</strong> How might it differ?
+
+Provide ratings for your specific persona (25, high openness).</div>
+                            </div>
+                            <div class="prompt-section">
+                                <div class="prompt-label">Explanation:</div>
+                                <div class="prompt-content">Comment flagged as toxic due to personal insults.
+
+Rate Understanding and Trust (1-10).</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
 
-            <!-- Prompt Preview Modal (Hidden by default) -->
-            <div class="prompt-preview" id="promptPreview" style="display: none;">
-                <div class="prompt-preview-header">
-                    <strong id="promptPreviewTitle">📝 Prompt Preview</strong>
-                    <button class="btn-close" id="btnClosePreview">✕</button>
-                </div>
-                
-                <div class="prompt-example" id="promptExampleContent">
-                    <!-- Content will be populated by JavaScript -->
-                </div>
-            </div>
+            <!-- Removed the bottom prompt preview modal -->
 
             <!-- Selected Strategies Summary -->
             <div style="background: #e8f4f8; border: 2px solid #3498db; border-radius: 10px; padding: 20px; margin-top: 20px;">
@@ -1611,10 +1705,12 @@
 
         // Setup prompting strategy event listeners
         function setupPromptingEventListeners() {
-            // Click on strategy card
+            // Click on strategy card (not on preview button or checkbox)
             document.querySelectorAll('.strategy-card').forEach(card => {
                 card.addEventListener('click', (e) => {
-                    if (!e.target.classList.contains('btn-preview') && !e.target.classList.contains('strategy-checkbox')) {
+                    if (!e.target.classList.contains('btn-preview') && 
+                        !e.target.classList.contains('strategy-checkbox') &&
+                        !e.target.closest('.prompt-preview-inline')) {
                         const checkbox = card.querySelector('.strategy-checkbox');
                         checkbox.checked = !checkbox.checked;
                         handleStrategyChange(checkbox);
@@ -1629,19 +1725,30 @@
                 });
             });
 
-            // Preview buttons
+            // Preview buttons - toggle inline preview
             document.querySelectorAll('.btn-preview').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation();
                     const strategy = btn.dataset.strategy;
-                    showPromptPreview(strategy);
+                    togglePromptPreview(strategy);
                 });
             });
+        }
 
-            // Close preview
-            document.getElementById('btnClosePreview').addEventListener('click', () => {
-                document.getElementById('promptPreview').style.display = 'none';
-            });
+        // Toggle inline prompt preview
+        function togglePromptPreview(strategy) {
+            const preview = document.getElementById(`preview-${strategy}`);
+            const button = document.querySelector(`button[data-strategy="${strategy}"]`);
+            
+            if (preview.style.display === 'none') {
+                // Show preview
+                preview.style.display = 'block';
+                button.textContent = '👁️ Hide Prompt';
+            } else {
+                // Hide preview
+                preview.style.display = 'none';
+                button.textContent = '👁️ Preview Prompt';
+            }
         }
 
         // Handle strategy selection change
@@ -1677,103 +1784,6 @@
             document.getElementById('selectedStrategyNames').textContent = names || 'None selected';
             
             document.getElementById('strategyMultiplier').textContent = `${count}× baseline`;
-        }
-
-        // Show prompt preview
-        function showPromptPreview(strategy) {
-            const strategyContent = {
-                'direct': `
-                    <div class="prompt-section">
-                        <div class="prompt-label">System Instructions:</div>
-                        <div class="prompt-content">You are participating in a research study evaluating AI explanations. Your responses should reflect your age and personality characteristics authentically.</div>
-                    </div>
-                    <div class="prompt-section">
-                        <div class="prompt-label">Persona (Example: Age 25, High Openness):</div>
-                        <div class="prompt-content">You are a 25-year-old person with high openness to new experiences. You enjoy exploring new ideas, appreciate abstract thinking, and are curious about complex explanations. You are comfortable with technology and tend to engage deeply with detailed information.</div>
-                    </div>
-                    <div class="prompt-section">
-                        <div class="prompt-label">Task:</div>
-                        <div class="prompt-content"><strong>Question:</strong> Is this comment toxic?
-
-<strong>AI Explanation:</strong> This comment was flagged as toxic because it contains personal insults ("idiot") and uses aggressive, demeaning language.
-
-<strong>Evaluation:</strong> Based on your age and personality, please rate the following on a scale of 1-10:
-1. <strong>Understanding:</strong> How well do you understand WHY the AI made this decision?
-2. <strong>Trust:</strong> How much do you trust this AI decision?
-
-<strong>Response Format:</strong> Provide only numerical scores (1-10) for each metric.</div>
-                    </div>
-                `,
-                'scenario': `
-                    <div class="prompt-section">
-                        <div class="prompt-label">Scenario Context:</div>
-                        <div class="prompt-content">You are at work, reviewing content moderation decisions made by an AI system. As a 25-year-old team member with high openness to new ideas, you're tasked with evaluating whether the AI's explanations are clear and trustworthy.</div>
-                    </div>
-                    <div class="prompt-section">
-                        <div class="prompt-label">Your Background:</div>
-                        <div class="prompt-content">You enjoy understanding complex systems and appreciate detailed explanations. You're comfortable questioning decisions and thinking critically about AI tools.</div>
-                    </div>
-                    <div class="prompt-section">
-                        <div class="prompt-label">The Explanation You're Reviewing:</div>
-                        <div class="prompt-content"><strong>Question:</strong> Is this comment toxic?
-<strong>AI's Explanation:</strong> This comment was flagged because it contains personal insults and aggressive language.
-
-Rate how well you understand and trust this explanation (1-10 scale).</div>
-                    </div>
-                `,
-                'cot': `
-                    <div class="prompt-section">
-                        <div class="prompt-label">Chain-of-Thought Instructions:</div>
-                        <div class="prompt-content">As a 25-year-old person with high openness to experiences, think through step-by-step how you would evaluate this explanation.
-
-<strong>Step 1:</strong> Consider your characteristics (age, personality)
-<strong>Step 2:</strong> Read the explanation carefully
-<strong>Step 3:</strong> Think about what makes sense and what doesn't
-<strong>Step 4:</strong> Reflect on your level of trust and understanding
-<strong>Step 5:</strong> Provide ratings with reasoning</div>
-                    </div>
-                    <div class="prompt-section">
-                        <div class="prompt-label">Explanation to Evaluate:</div>
-                        <div class="prompt-content">AI Decision: Comment flagged as toxic
-Reason: Contains personal insults and aggressive language
-
-<strong>Your thoughtful evaluation:</strong> [Rate Understanding and Trust on 1-10 scale, with reasoning]</div>
-                    </div>
-                `,
-                'comparative': `
-                    <div class="prompt-section">
-                        <div class="prompt-label">Comparative Analysis Instructions:</div>
-                        <div class="prompt-content">Consider how people with different characteristics might evaluate this explanation differently.
-
-<strong>Younger person (25, high openness):</strong> How would they respond?
-<strong>Older person (65, low openness):</strong> How might their response differ?
-
-Provide ratings for your specific persona (25, high openness).</div>
-                    </div>
-                    <div class="prompt-section">
-                        <div class="prompt-label">Explanation:</div>
-                        <div class="prompt-content">Comment flagged as toxic due to personal insults and aggressive tone.
-
-Rate Understanding and Trust (1-10), considering how your age and personality affect your perspective.</div>
-                    </div>
-                `
-            };
-
-            const strategyTitles = {
-                'direct': 'Direct Persona Embedding',
-                'scenario': 'Scenario-Based Simulation',
-                'cot': 'Chain-of-Thought Reasoning',
-                'comparative': 'Comparative Evaluation'
-            };
-
-            document.getElementById('promptPreviewTitle').textContent = `📝 Prompt Preview: ${strategyTitles[strategy]}`;
-            document.getElementById('promptExampleContent').innerHTML = strategyContent[strategy];
-            document.getElementById('promptPreview').style.display = 'block';
-
-            // Scroll to preview
-            setTimeout(() => {
-                document.getElementById('promptPreview').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }, 100);
         }
 
         // Setup config event listeners
