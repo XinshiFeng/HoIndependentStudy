@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XAI Evaluation Toolkit - Combined</title>
+    <title>XAI Eval Toolkit - Interactive</title>
     <style>
         * {
             margin: 0;
@@ -517,161 +517,6 @@
             background: #f39c12;
         }
 
-        /* Loading spinner */
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 20px;
-            color: #3498db;
-        }
-
-        .loading.show {
-            display: block;
-        }
-
-        .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #3498db;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 10px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Template Download */
-        .template-section {
-            background: #fff9e6;
-            border: 2px solid #ffd966;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .template-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .template-icon {
-            font-size: 24px;
-        }
-
-        .template-title {
-            font-weight: 600;
-            color: #996600;
-            font-size: 16px;
-        }
-
-        .template-buttons {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .btn-template {
-            background: white;
-            color: #996600;
-            border: 2px solid #ffd966;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-template:hover {
-            background: #ffd966;
-            transform: translateY(-2px);
-        }
-
-        /* Settings Grid & Forms (for simulation config) */
-        .settings-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 0;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            color: #34495e;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        .form-group select,
-        .form-group input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 14px;
-            font-family: inherit;
-            transition: all 0.3s ease;
-        }
-
-        .form-group select:focus,
-        .form-group input:focus {
-            outline: none;
-            border-color: #3498db;
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
-        }
-
-        /* Buttons / Actions */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 14px 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
-        }
-
-        .btn:disabled {
-            background: #95a5a6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .btn-secondary {
-            background: #95a5a6;
-            box-shadow: 0 4px 15px rgba(149, 165, 166, 0.3);
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 15px;
-        }
-
         /* Strategy Cards */
         .strategy-card {
             border: 2px solid #e0e0e0;
@@ -697,12 +542,6 @@
             align-items: center;
             gap: 15px;
             margin-bottom: 12px;
-        }
-
-        .strategy-header input[type="radio"] {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
         }
 
         .strategy-header input[type="checkbox"],
@@ -746,7 +585,7 @@
             font-size: 14px;
             line-height: 1.6;
             margin-bottom: 15px;
-            padding-left: 35px;
+            padding-left: 37px;
         }
 
         .btn-preview {
@@ -758,7 +597,7 @@
             font-size: 13px;
             font-weight: 600;
             cursor: pointer;
-            margin-left: 35px;
+            margin-left: 37px;
             transition: all 0.3s ease;
         }
 
@@ -767,18 +606,13 @@
             color: white;
         }
 
-        /* Prompt Preview Modal */
+        /* Prompt Preview */
         .prompt-preview {
             background: #f8f9fa;
             border: 2px solid #3498db;
             border-radius: 12px;
             padding: 25px;
             margin-top: 20px;
-            display: none;
-        }
-
-        .prompt-preview.show {
-            display: block;
         }
 
         .prompt-preview-header {
@@ -805,6 +639,11 @@
             cursor: pointer;
             font-size: 16px;
             font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-close:hover {
+            background: #c0392b;
         }
 
         .prompt-example {
@@ -843,9 +682,113 @@
             color: #2c3e50;
         }
 
-        .prompt-content em {
-            color: #7f8c8d;
-            font-size: 12px;
+        /* Settings Grid */
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 0;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #34495e;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: white;
+            cursor: pointer;
+        }
+
+        .form-group select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .form-group select:hover {
+            border-color: #3498db;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .btn-secondary {
+            background: #95a5a6;
+            box-shadow: 0 4px 15px rgba(149, 165, 166, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+        }
+
+        /* Loading spinner */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #3498db;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* Responsive */
@@ -868,34 +811,11 @@
                 <div class="logo">🤖</div>
                 XAI Evaluation Toolkit
             </h1>
-            <p>
-                Batch evaluation of Explainable AI systems using LLM-simulated user populations.
-                Upload your CSV file with XAI explanations and get comprehensive evaluation reports
-                (with optional human-data validation, prompting strategies, and simulation settings).
-            </p>
+            <p>Batch evaluation of Explainable AI systems using LLM-simulated user populations. Upload your CSV file with XAI explanations and get comprehensive evaluation reports.</p>
             <span class="badge">Based on Nimmo et al. (2024) CHI Research</span>
         </div>
 
-        <!-- Template Download Section (from second file) -->
-        <div class="template-section">
-            <div class="template-header">
-                <span class="template-icon">📋</span>
-                <span class="template-title">Need a template? Download our standardized format</span>
-            </div>
-            <div class="template-buttons">
-                <button class="btn-template">
-                    📄 Download CSV Template (Simulation Only)
-                </button>
-                <button class="btn-template">
-                    📊 Download CSV Template (With Human Data)
-                </button>
-                <button class="btn-template">
-                    📖 View Format Documentation
-                </button>
-            </div>
-        </div>
-
-        <!-- Step 1: File Upload (from first file, interactive) -->
+        <!-- Step 1: File Upload -->
         <div class="card">
             <h2>
                 <span class="step-number">1</span>
@@ -969,8 +889,8 @@
             </div>
         </div>
 
-        <!-- Step 2: Select Metrics -->
-        <div class="card">
+        <!-- Step 2: Configure Evaluation Metrics -->
+        <div class="card" id="metricsCard" style="display: none;">
             <h2>
                 <span class="step-number">2</span>
                 Configure Evaluation Metrics
@@ -979,57 +899,12 @@
             <div class="metrics-section">
                 <!-- Standard Metrics -->
                 <div>
-                    <h3 style="margin-bottom: 15px; color: #2c3e50; font-size: 16px;">Select Metrics to Evaluate (1-10 Scale)</h3>
+                    <h3 style="margin-bottom: 15px; color: #2c3e50; font-size: 16px;">
+                        Select Metrics to Evaluate (1-10 Scale)
+                    </h3>
                     
-                    <div style="display: grid; gap: 12px;">
-                        <div class="metric-item has-human-data selected">
-                            <input type="checkbox" class="metric-checkbox" checked>
-                            <div class="metric-info">
-                                <div class="metric-name">
-                                    Understanding
-                                    <span class="metric-badge">HAS HUMAN DATA</span>
-                                </div>
-                                <div class="metric-desc">How well users comprehend the explanation</div>
-                            </div>
-                        </div>
-
-                        <div class="metric-item has-human-data selected">
-                            <input type="checkbox" class="metric-checkbox" checked>
-                            <div class="metric-info">
-                                <div class="metric-name">
-                                    Trust
-                                    <span class="metric-badge">HAS HUMAN DATA</span>
-                                </div>
-                                <div class="metric-desc">User confidence in the AI decision</div>
-                            </div>
-                        </div>
-
-                        <div class="metric-item has-human-data selected">
-                            <input type="checkbox" class="metric-checkbox" checked>
-                            <div class="metric-info">
-                                <div class="metric-name">
-                                    Satisfaction
-                                    <span class="metric-badge">HAS HUMAN DATA</span>
-                                </div>
-                                <div class="metric-desc">Overall satisfaction with the explanation</div>
-                            </div>
-                        </div>
-
-                        <div class="metric-item">
-                            <input type="checkbox" class="metric-checkbox">
-                            <div class="metric-info">
-                                <div class="metric-name">Usefulness</div>
-                                <div class="metric-desc">Practical value of the explanation</div>
-                            </div>
-                        </div>
-
-                        <div class="metric-item">
-                            <input type="checkbox" class="metric-checkbox">
-                            <div class="metric-info">
-                                <div class="metric-name">Clarity</div>
-                                <div class="metric-desc">How clear and unambiguous the explanation is</div>
-                            </div>
-                        </div>
+                    <div id="standardMetricsContainer" style="display: grid; gap: 12px;">
+                        <!-- Metrics will be populated by JavaScript -->
                     </div>
                 </div>
 
@@ -1041,8 +916,16 @@
                             Add your own evaluation criteria
                         </div>
                         <div class="custom-metric-input">
-                            <input type="text" placeholder="e.g., Consistency">
-                            <button>+ Add</button>
+                            <input type="text" id="customMetricInput" placeholder="e.g., Technical Accuracy" maxlength="50">
+                            <button id="btnAddMetric">+ Add</button>
+                        </div>
+                        <div id="customMetricsInfo" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #e0e0e0; display: none;">
+                            <div style="font-size: 13px; color: #7f8c8d; margin-bottom: 8px;">
+                                <strong>Custom Metrics Added:</strong>
+                            </div>
+                            <div id="customMetricsList" style="display: flex; flex-direction: column; gap: 8px;">
+                                <!-- Custom metrics info will appear here -->
+                            </div>
                         </div>
                     </div>
 
@@ -1050,11 +933,11 @@
                         <strong>💡 How it works:</strong><br>
                         • Metrics with human data will show comparison results<br>
                         • New metrics you select will generate LLM predictions only<br>
-                        • All metrics use a 10-point scale (1-10)
+                        • All metrics use a 10-point scale (1-10)<br>
+                        • Custom metrics appear as selectable items above
                     </div>
                 </div>
             </div>
-        </div>
 
             <!-- Selected Metrics Summary -->
             <div id="selectedMetricsSummary" style="background: #e8f4f8; border: 2px solid #3498db; border-radius: 10px; padding: 20px; margin-top: 25px; display: none;">
@@ -1074,8 +957,8 @@
             </div>
         </div>
 
-        <!-- Step 3: Prompting Strategy (from second file) -->
-        <div class="card">
+        <!-- Step 3: Select Prompting Strategy -->
+        <div class="card" id="promptingCard" style="display: none;">
             <h2>
                 <span class="step-number">3</span>
                 Select Prompting Strategy
@@ -1087,16 +970,16 @@
 
             <div class="info-box" style="margin-bottom: 20px;">
                 <strong>💡 Multiple Strategy Testing:</strong><br>
-                Selecting multiple strategies will run simulations for each approach independently. You'll receive comparative results showing which strategy produces the most accurate/consistent predictions. Useful for research validation and methodology comparison.
+                Selecting multiple strategies will run simulations for each approach independently. You'll receive comparative results showing which strategy produces the most accurate/consistent predictions.
             </div>
 
             <!-- Strategy Cards -->
             <div style="display: grid; gap: 20px; margin-bottom: 25px;">
                 
                 <!-- Strategy 1: Direct Persona -->
-                <div class="strategy-card selected">
+                <div class="strategy-card selected" data-strategy="direct">
                     <div class="strategy-header">
-                        <input type="checkbox" class="strategy-checkbox" checked>
+                        <input type="checkbox" class="strategy-checkbox" data-strategy="direct" checked>
                         <div class="strategy-title">
                             <strong>Direct Persona Embedding</strong>
                             <span class="strategy-badge recommended">Recommended</span>
@@ -1105,112 +988,87 @@
                     <div class="strategy-desc">
                         Directly embeds age and personality characteristics into the prompt. Simple and effective.
                     </div>
-                    <button class="btn-preview">👁️ Preview Prompt</button>
+                    <button class="btn-preview" data-strategy="direct">👁️ Preview Prompt</button>
                 </div>
 
-                <!-- Strategy 2: Chain-of-Thought -->
-                <div class="strategy-card selected">
+                <!-- Strategy 2: Scenario-Based -->
+                <div class="strategy-card" data-strategy="scenario">
                     <div class="strategy-header">
-                        <input type="checkbox" class="strategy-checkbox" checked>
+                        <input type="checkbox" class="strategy-checkbox" data-strategy="scenario">
+                        <div class="strategy-title">
+                            <strong>Scenario-Based Simulation</strong>
+                            <span class="strategy-badge experimental">Experimental</span>
+                        </div>
+                    </div>
+                    <div class="strategy-desc">
+                        Places the LLM in a realistic scenario context (e.g., "You're reviewing this at work..."). May increase engagement simulation.
+                    </div>
+                    <button class="btn-preview" data-strategy="scenario">👁️ Preview Prompt</button>
+                </div>
+
+                <!-- Strategy 3: Chain-of-Thought -->
+                <div class="strategy-card" data-strategy="cot">
+                    <div class="strategy-header">
+                        <input type="checkbox" class="strategy-checkbox" data-strategy="cot">
                         <div class="strategy-title">
                             <strong>Chain-of-Thought Reasoning</strong>
                         </div>
                     </div>
                     <div class="strategy-desc">
-                        Asks the LLM to explicitly reason through how a person with given characteristics would evaluate. More detailed but slower.
+                        Asks the LLM to explicitly reason through evaluation. More detailed but slower.
                     </div>
-                    <button class="btn-preview">👁️ Preview Prompt</button>
+                    <button class="btn-preview" data-strategy="cot">👁️ Preview Prompt</button>
                 </div>
 
-                <!-- Strategy 3: Comparative -->
-                <div class="strategy-card selected">
+                <!-- Strategy 4: Comparative -->
+                <div class="strategy-card" data-strategy="comparative">
                     <div class="strategy-header">
-                        <input type="checkbox" class="strategy-checkbox" checked>
+                        <input type="checkbox" class="strategy-checkbox" data-strategy="comparative">
                         <div class="strategy-title">
                             <strong>Comparative Evaluation</strong>
                         </div>
                     </div>
                     <div class="strategy-desc">
-                        Asks the LLM to compare how different personas might react differently. Useful for understanding persona effects.
+                        Explicitly models how different personas react differently. Useful for research validation.
                     </div>
-                    <button class="btn-preview">👁️ Preview Prompt</button>
+                    <button class="btn-preview" data-strategy="comparative">👁️ Preview Prompt</button>
                 </div>
 
             </div>
 
-            <!-- Prompt Preview Modal -->
-            <div class="prompt-preview" id="promptPreview">
+            <!-- Prompt Preview Modal (Hidden by default) -->
+            <div class="prompt-preview" id="promptPreview" style="display: none;">
                 <div class="prompt-preview-header">
-                    <strong>📝 Prompt Preview: Direct Persona Embedding</strong>
+                    <strong id="promptPreviewTitle">📝 Prompt Preview</strong>
                     <button class="btn-close" id="btnClosePreview">✕</button>
                 </div>
                 
-                <div class="prompt-example">
-                    <div class="prompt-section">
-                        <div class="prompt-label">System Instructions:</div>
-                        <div class="prompt-content">
-You are participating in a research study evaluating AI explanations. Your responses should reflect your age and personality characteristics authentically.
-                        </div>
-                    </div>
-
-                    <div class="prompt-section">
-                        <div class="prompt-label">Persona (Example: Age 25, High Openness):</div>
-                        <div class="prompt-content">
-You are a 25-year-old person with high openness to new experiences. You enjoy exploring new ideas, appreciate abstract thinking, and are curious about complex explanations. You are comfortable with technology and tend to engage deeply with detailed information.
-                        </div>
-                    </div>
-
-                    <div class="prompt-section">
-                        <div class="prompt-label">Task:</div>
-                        <div class="prompt-content">
-<strong>Question:</strong> Is this comment toxic?
-
-<strong>AI Explanation:</strong> This comment was flagged as toxic because it contains personal insults ("idiot") and uses aggressive, demeaning language. The model identified these linguistic patterns as strongly associated with inappropriate communication based on training data from thousands of labeled examples.
-
-<strong>Evaluation:</strong>
-Based on your age and personality, please rate the following on a scale of 1-10:
-
-1. <strong>Understanding:</strong> How well do you understand WHY the AI made this decision?
-   (1 = Don't understand at all, 10 = Completely understand)
-
-2. <strong>Trust:</strong> How much do you trust this AI decision?
-   (1 = Don't trust at all, 10 = Completely trust)
-
-3. <strong>Satisfaction:</strong> How satisfied are you with this explanation?
-   (1 = Very unsatisfied, 10 = Very satisfied)
-
-<strong>Response Format:</strong>
-Provide only numerical scores (1-10) for each metric.
-                        </div>
-                    </div>
-
-                    <div class="prompt-section">
-                        <div class="prompt-label">Example LLM Response:</div>
-                        <div class="prompt-content" style="background: #e8f4f8; border-left: 4px solid #3498db;">
-Understanding: 8
-Trust: 7
-Satisfaction: 8
-
-<em>Reasoning: As someone who is open to new ideas and comfortable with detailed explanations, I found this explanation clear and well-justified. The reference to training data provides good context. The concrete example ("idiot") makes it easy to understand why the comment was flagged. My understanding and satisfaction are high, though my trust is slightly lower because I'd want to know more about potential false positives.</em>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="info-box" style="margin-top: 20px;">
-                    <strong>💡 Note:</strong> The actual prompt will be customized for each of the 9 persona combinations (3 age groups × 3 openness levels) and repeated for each explanation in your dataset.
+                <div class="prompt-example" id="promptExampleContent">
+                    <!-- Content will be populated by JavaScript -->
                 </div>
             </div>
 
-            <div class="info-box">
-                <strong>🎯 Strategy Comparison:</strong><br>
-                • <strong>Direct Persona:</strong> Fast, consistent, good for large batches (Recommended for most users)<br>
-                • <strong>Chain-of-Thought:</strong> More detailed reasoning, better for understanding why scores differ<br>
-                • <strong>Comparative:</strong> Explicitly models persona differences, useful for research validation
+            <!-- Selected Strategies Summary -->
+            <div style="background: #e8f4f8; border: 2px solid #3498db; border-radius: 10px; padding: 20px; margin-top: 20px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <strong style="color: #2c3e50; display: block; margin-bottom: 5px;">
+                            Selected Strategies: <span style="color: #3498db;" id="selectedStrategyCount">1</span>
+                        </strong>
+                        <span style="font-size: 13px; color: #7f8c8d;" id="selectedStrategyNames">
+                            Direct Persona Embedding
+                        </span>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-size: 12px; color: #7f8c8d; margin-bottom: 3px;">Impact on processing:</div>
+                        <strong style="color: #2c3e50; font-size: 16px;" id="strategyMultiplier">1× baseline</strong>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Step 4: Simulation Settings (from second file) -->
-        <div class="card">
+        <!-- Step 4: Simulation Configuration -->
+        <div class="card" id="configCard" style="display: none;">
             <h2>
                 <span class="step-number">4</span>
                 Simulation Configuration
@@ -1219,30 +1077,30 @@ Satisfaction: 8
             <div class="settings-grid">
                 <div class="form-group">
                     <label>Samples per Persona</label>
-                    <select>
-                        <option>10</option>
-                        <option selected>20</option>
-                        <option>30</option>
-                        <option>50</option>
+                    <select id="selectSamples">
+                        <option value="10">10 (Quick test)</option>
+                        <option value="20" selected>20 (Recommended)</option>
+                        <option value="30">30 (High confidence)</option>
+                        <option value="50">50 (Research grade)</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label>LLM Model</label>
-                    <select>
-                        <option>GPT-4o</option>
-                        <option selected>GPT-4o-mini</option>
-                        <option>Claude Sonnet 4.5</option>
-                        <option>Claude Haiku 4.5</option>
+                    <select id="selectModel">
+                        <option value="gpt-4o">GPT-4o (Highest quality)</option>
+                        <option value="gpt-4o-mini" selected>GPT-4o-mini (Fast & cost-effective)</option>
+                        <option value="claude-sonnet">Claude Sonnet 4.5</option>
+                        <option value="claude-haiku">Claude Haiku 4.5 (Fastest)</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label>Temperature</label>
-                    <select>
-                        <option>0.7</option>
-                        <option selected>0.8</option>
-                        <option>0.9</option>
+                    <select id="selectTemperature">
+                        <option value="0.7">0.7 (More consistent)</option>
+                        <option value="0.8" selected>0.8 (Balanced)</option>
+                        <option value="0.9">0.9 (More varied)</option>
                     </select>
                 </div>
             </div>
@@ -1251,42 +1109,55 @@ Satisfaction: 8
                 <strong>Persona Configuration (Based on Nimmo et al., 2024):</strong><br>
                 • <strong>Age Groups:</strong> Young (25), Middle (45), Older (65)<br>
                 • <strong>Openness Levels:</strong> Low, Medium, High<br>
-                • <strong>Total:</strong> 9 persona types × samples × metrics × explanations
+                • <strong>Total:</strong> 9 persona types × samples × metrics × strategies
             </div>
 
+            <!-- Cost/Time Estimate -->
+            <div style="background: #fff3cd; border: 2px solid #ffc107; border-radius: 10px; padding: 20px; margin-top: 20px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <div>
+                        <div style="font-size: 14px; color: #856404; margin-bottom: 5px;">Estimated Cost:</div>
+                        <strong style="color: #856404; font-size: 24px;" id="estimatedCost">$0.00</strong>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-size: 14px; color: #856404; margin-bottom: 5px;">Estimated Time:</div>
+                        <strong style="color: #856404; font-size: 24px;" id="estimatedTime">0 min</strong>
+                    </div>
+                </div>
+                <div style="font-size: 12px; color: #856404; padding-top: 15px; border-top: 1px solid #ffc107;">
+                    <div id="costBreakdown">
+                        <!-- Cost breakdown will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
             <div class="btn-group" style="margin-top: 20px;">
-                <button class="btn">
+                <button class="btn" id="btnRunEvaluation">
                     ▶️ Run Evaluation
                 </button>
-                <button class="btn btn-secondary">
+                <button class="btn btn-secondary" id="btnSaveConfig">
                     💾 Save Configuration
                 </button>
-            </div>
-        </div>
-
-        <!-- Results Preview -->
-        <div class="card" style="border: 3px solid #e0e0e0;">
-            <div style="text-align: center; padding: 40px; color: #95a5a6;">
-                <div style="font-size: 48px; margin-bottom: 15px;">📊</div>
-                <div style="font-size: 18px; font-weight: 600; margin-bottom: 10px; color: #7f8c8d;">
-                    Results will appear here
-                </div>
-                <div style="font-size: 14px;">
-                    <strong>Simulation Mode:</strong> LLM predictions, statistical analysis, visualizations<br>
-                    <strong>Validation Mode:</strong> All of above + comparison with human data (MAE, correlations, effect agreement)
-                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // ==== STATE (from first file) ====
+        // State
         let uploadedFile = null;
         let parsedData = null;
         let detectedHumanMetrics = [];
         let selectedMetrics = new Set();
         let customMetrics = [];
+        let selectedStrategies = new Set(['direct']); // Default: Direct Persona
+        let configSettings = {
+            samples: 20,
+            model: 'gpt-4o-mini',
+            temperature: 0.8
+        };
 
+        // Standard metrics definitions
         const standardMetrics = [
             { name: 'understanding', label: 'Understanding', desc: 'How well users comprehend the explanation' },
             { name: 'trust', label: 'Trust', desc: 'User confidence in the AI decision' },
@@ -1351,6 +1222,7 @@ Satisfaction: 8
 
         // Handle file upload
         function handleFile(file) {
+            // Check if CSV
             if (!file.name.toLowerCase().endsWith('.csv')) {
                 showError('Please upload a CSV file only.');
                 return;
@@ -1359,6 +1231,7 @@ Satisfaction: 8
             uploadedFile = file;
             showLoading();
 
+            // Read file
             const reader = new FileReader();
             reader.onload = (e) => {
                 try {
@@ -1385,8 +1258,10 @@ Satisfaction: 8
                 return;
             }
 
+            // Parse header
             const headers = parseCSVLine(lines[0]);
             
+            // Parse data rows (first 5 for preview)
             const rows = [];
             for (let i = 1; i < Math.min(6, lines.length); i++) {
                 rows.push(parseCSVLine(lines[i]));
@@ -1402,7 +1277,7 @@ Satisfaction: 8
             validateAndDisplay();
         }
 
-        // Simple CSV line parser
+        // Simple CSV line parser (handles quoted fields)
         function parseCSVLine(line) {
             const result = [];
             let current = '';
@@ -1429,22 +1304,37 @@ Satisfaction: 8
         function validateAndDisplay() {
             const { headers, rows, totalRows, file } = parsedData;
 
-            const hasQuestion = headers.some(h => 
-                h.toLowerCase().includes('question') || h.toLowerCase().includes('context')
-            );
-            const hasExplanation = headers.some(h => 
-                h.toLowerCase().includes('explanation')
-            );
+            // Check for required columns (more flexible)
+            const hasQuestion = headers.some(h => {
+                const lower = h.toLowerCase().trim();
+                return lower === 'question' || lower === 'context';
+            });
+            
+            const hasExplanation = headers.some(h => {
+                const lower = h.toLowerCase().trim();
+                return lower === 'explanation' || lower === 'xai_explanation' || lower.includes('explanation');
+            });
 
             if (!hasQuestion || !hasExplanation) {
-                showError('CSV must contain "question" (or "context") and "xai_explanation" (or "explanation") columns.');
+                showError('CSV must contain "question" (or "context") and "explanation" (or "xai_explanation") columns.');
                 hideLoading();
                 return;
             }
 
-            const humanColumns = headers.filter(h => h.toLowerCase().startsWith('human_'));
+            // Detect if validation mode (has human_* columns)
+            // Check each header more carefully
+            const humanColumns = headers.filter(h => {
+                const lower = h.toLowerCase().trim();
+                return lower.startsWith('human_');
+            });
+            
             const isValidationMode = humanColumns.length > 0;
 
+            console.log('Headers:', headers);
+            console.log('Human columns found:', humanColumns);
+            console.log('Is validation mode:', isValidationMode);
+
+            // Display file info
             displayFilePreview(file, totalRows, headers, rows, isValidationMode, humanColumns);
             hideLoading();
             showSuccess(isValidationMode, humanColumns);
@@ -1452,9 +1342,11 @@ Satisfaction: 8
 
         // Display file preview
         function displayFilePreview(file, totalRows, headers, rows, isValidationMode, humanColumns) {
+            // File name and meta
             fileNameText.textContent = file.name;
             fileMeta.textContent = `${formatFileSize(file.size)} • ${totalRows} rows • Just uploaded`;
 
+            // Mode indicator
             if (isValidationMode) {
                 modeIndicator.style.display = 'inline-flex';
                 modeIndicator.className = 'detected-mode validation';
@@ -1465,19 +1357,22 @@ Satisfaction: 8
                 modeIndicator.innerHTML = '✨ Simulation Mode';
             }
 
+            // Table header
             tableHeader.innerHTML = '<tr>' + 
                 headers.map(h => `<th>${escapeHtml(h)}</th>`).join('') + 
             '</tr>';
 
+            // Table body
             tableBody.innerHTML = rows.map(row => 
                 '<tr>' + row.map(cell => `<td title="${escapeHtml(cell)}">${escapeHtml(cell)}</td>`).join('') + '</tr>'
             ).join('');
 
+            // Show preview
             uploadArea.style.display = 'none';
             filePreview.classList.add('show');
         }
 
-        // Show success / info boxes
+        // Show success message
         function showSuccess(isValidationMode, humanColumns) {
             let infoHTML = '';
 
@@ -1520,21 +1415,24 @@ Satisfaction: 8
 
             infoBoxContainer.innerHTML = infoHTML;
 
+            // Show metrics section
             showMetricsSection(humanColumns);
         }
 
-        // Metrics section
+        // Show metrics section
         function showMetricsSection(humanColumns) {
             detectedHumanMetrics = humanColumns.map(c => c.replace('human_', '').toLowerCase());
             populateStandardMetrics();
             setupMetricsEventListeners();
             document.getElementById('metricsCard').style.display = 'block';
             
+            // Scroll to metrics section
             setTimeout(() => {
                 document.getElementById('metricsCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 100);
         }
 
+        // Populate standard metrics
         function populateStandardMetrics() {
             const container = document.getElementById('standardMetricsContainer');
             container.innerHTML = '';
@@ -1556,12 +1454,14 @@ Satisfaction: 8
                     </div>
                 `;
 
+                // ONLY auto-select metrics with human data (validation mode)
                 if (hasHumanData) {
                     const checkbox = metricDiv.querySelector('.metric-checkbox');
                     checkbox.checked = true;
                     selectedMetrics.add(metric.name);
                     metricDiv.classList.add('selected');
                 }
+                // Do NOT auto-select anything in simulation mode
 
                 container.appendChild(metricDiv);
             });
@@ -1569,10 +1469,10 @@ Satisfaction: 8
             updateSelectedMetricsSummary();
         }
 
+        // Setup event listeners for metrics
         function setupMetricsEventListeners() {
-            const metricsContainer = document.getElementById('standardMetricsContainer');
-
-            metricsContainer.addEventListener('click', (e) => {
+            // Click on metric item
+            document.getElementById('standardMetricsContainer').addEventListener('click', (e) => {
                 const metricItem = e.target.closest('.metric-item');
                 if (metricItem && !e.target.classList.contains('metric-checkbox')) {
                     const checkbox = metricItem.querySelector('.metric-checkbox');
@@ -1581,12 +1481,14 @@ Satisfaction: 8
                 }
             });
 
-            metricsContainer.addEventListener('change', (e) => {
+            // Checkbox change
+            document.getElementById('standardMetricsContainer').addEventListener('change', (e) => {
                 if (e.target.classList.contains('metric-checkbox')) {
                     handleMetricChange(e.target);
                 }
             });
 
+            // Add custom metric
             document.getElementById('btnAddMetric').addEventListener('click', addCustomMetric);
             document.getElementById('customMetricInput').addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
@@ -1595,6 +1497,7 @@ Satisfaction: 8
             });
         }
 
+        // Handle metric checkbox change
         function handleMetricChange(checkbox) {
             const metric = checkbox.dataset.metric;
             const metricItem = checkbox.closest('.metric-item');
@@ -1610,44 +1513,345 @@ Satisfaction: 8
             updateSelectedMetricsSummary();
         }
 
+        // Add custom metric
         function addCustomMetric() {
             const input = document.getElementById('customMetricInput');
             const metricName = input.value.trim();
+
             if (!metricName) return;
 
+            // Check if already exists
             const metricKey = metricName.toLowerCase().replace(/\s+/g, '_');
             if (customMetrics.some(m => m.key === metricKey)) {
                 alert('This metric already exists!');
                 return;
             }
 
-            customMetrics.push({ key: metricKey, label: metricName });
-            selectedMetrics.add(metricKey);
+            // Check if already in standard metrics
+            if (standardMetrics.some(m => m.name === metricKey)) {
+                alert('This metric already exists in standard metrics!');
+                return;
+            }
 
-            const container = document.getElementById('customMetricsList');
-            const tag = document.createElement('div');
-            tag.className = 'custom-metric-tag';
-            tag.dataset.metric = metricKey;
-            tag.innerHTML = `
-                ${metricName}
-                <button onclick="removeCustomMetric('${metricKey}')">×</button>
+            // Add to custom metrics
+            customMetrics.push({ key: metricKey, label: metricName, desc: 'Custom evaluation metric' });
+
+            // Add to standard metrics container as a selectable item
+            const container = document.getElementById('standardMetricsContainer');
+            const metricDiv = document.createElement('div');
+            metricDiv.className = 'metric-item';
+            metricDiv.dataset.metric = metricKey;
+            metricDiv.dataset.custom = 'true';
+
+            metricDiv.innerHTML = `
+                <input type="checkbox" class="metric-checkbox" data-metric="${metricKey}" checked>
+                <div class="metric-info">
+                    <div class="metric-name">
+                        ${metricName}
+                        <span style="font-size: 10px; padding: 2px 8px; border-radius: 10px; background: #9b59b6; color: white; font-weight: 600;">CUSTOM</span>
+                    </div>
+                    <div class="metric-desc">Custom evaluation metric</div>
+                </div>
             `;
-            container.appendChild(tag);
 
+            container.appendChild(metricDiv);
+
+            // Auto-select the newly added custom metric
+            selectedMetrics.add(metricKey);
+            metricDiv.classList.add('selected');
+
+            // Add to custom metrics info list
+            updateCustomMetricsInfo();
+
+            // Clear input
             input.value = '';
+
             updateSelectedMetricsSummary();
         }
 
+        // Remove custom metric
         function removeCustomMetric(metricKey) {
+            // Remove from array
             customMetrics = customMetrics.filter(m => m.key !== metricKey);
             selectedMetrics.delete(metricKey);
 
-            const tag = document.querySelector(\`.custom-metric-tag[data-metric="\${metricKey}"]\`);
-            if (tag) tag.remove();
+            // Remove from UI (metric item)
+            const metricItem = document.querySelector(`.metric-item[data-metric="${metricKey}"]`);
+            if (metricItem) {
+                metricItem.remove();
+            }
 
+            // Update custom metrics info
+            updateCustomMetricsInfo();
             updateSelectedMetricsSummary();
         }
 
+        // Update custom metrics info display
+        function updateCustomMetricsInfo() {
+            const infoDiv = document.getElementById('customMetricsInfo');
+            const listDiv = document.getElementById('customMetricsList');
+
+            if (customMetrics.length === 0) {
+                infoDiv.style.display = 'none';
+            } else {
+                infoDiv.style.display = 'block';
+                listDiv.innerHTML = customMetrics.map(metric => `
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: white; border-radius: 6px; border: 1px solid #e0e0e0;">
+                        <span style="font-size: 13px; color: #2c3e50;">
+                            <strong>${metric.label}</strong>
+                            <span style="color: #7f8c8d; margin-left: 8px; font-size: 11px;">(${metric.key})</span>
+                        </span>
+                        <button onclick="removeCustomMetric('${metric.key}')" style="background: #e74c3c; color: white; border: none; padding: 4px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600;">
+                            Delete
+                        </button>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Setup prompting strategy event listeners
+        function setupPromptingEventListeners() {
+            // Click on strategy card
+            document.querySelectorAll('.strategy-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    if (!e.target.classList.contains('btn-preview') && !e.target.classList.contains('strategy-checkbox')) {
+                        const checkbox = card.querySelector('.strategy-checkbox');
+                        checkbox.checked = !checkbox.checked;
+                        handleStrategyChange(checkbox);
+                    }
+                });
+            });
+
+            // Checkbox change
+            document.querySelectorAll('.strategy-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('change', (e) => {
+                    handleStrategyChange(e.target);
+                });
+            });
+
+            // Preview buttons
+            document.querySelectorAll('.btn-preview').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const strategy = btn.dataset.strategy;
+                    showPromptPreview(strategy);
+                });
+            });
+
+            // Close preview
+            document.getElementById('btnClosePreview').addEventListener('click', () => {
+                document.getElementById('promptPreview').style.display = 'none';
+            });
+        }
+
+        // Handle strategy selection change
+        function handleStrategyChange(checkbox) {
+            const strategy = checkbox.dataset.strategy;
+            const card = checkbox.closest('.strategy-card');
+
+            if (checkbox.checked) {
+                selectedStrategies.add(strategy);
+                card.classList.add('selected');
+            } else {
+                selectedStrategies.delete(strategy);
+                card.classList.remove('selected');
+            }
+
+            updateStrategySummary();
+            updateCostEstimate();
+        }
+
+        // Update strategy summary
+        function updateStrategySummary() {
+            const count = selectedStrategies.size;
+            const strategyNames = {
+                'direct': 'Direct Persona Embedding',
+                'scenario': 'Scenario-Based Simulation',
+                'cot': 'Chain-of-Thought Reasoning',
+                'comparative': 'Comparative Evaluation'
+            };
+
+            document.getElementById('selectedStrategyCount').textContent = count;
+            
+            const names = Array.from(selectedStrategies).map(s => strategyNames[s]).join(', ');
+            document.getElementById('selectedStrategyNames').textContent = names || 'None selected';
+            
+            document.getElementById('strategyMultiplier').textContent = `${count}× baseline`;
+        }
+
+        // Show prompt preview
+        function showPromptPreview(strategy) {
+            const strategyContent = {
+                'direct': `
+                    <div class="prompt-section">
+                        <div class="prompt-label">System Instructions:</div>
+                        <div class="prompt-content">You are participating in a research study evaluating AI explanations. Your responses should reflect your age and personality characteristics authentically.</div>
+                    </div>
+                    <div class="prompt-section">
+                        <div class="prompt-label">Persona (Example: Age 25, High Openness):</div>
+                        <div class="prompt-content">You are a 25-year-old person with high openness to new experiences. You enjoy exploring new ideas, appreciate abstract thinking, and are curious about complex explanations. You are comfortable with technology and tend to engage deeply with detailed information.</div>
+                    </div>
+                    <div class="prompt-section">
+                        <div class="prompt-label">Task:</div>
+                        <div class="prompt-content"><strong>Question:</strong> Is this comment toxic?
+
+<strong>AI Explanation:</strong> This comment was flagged as toxic because it contains personal insults ("idiot") and uses aggressive, demeaning language.
+
+<strong>Evaluation:</strong> Based on your age and personality, please rate the following on a scale of 1-10:
+1. <strong>Understanding:</strong> How well do you understand WHY the AI made this decision?
+2. <strong>Trust:</strong> How much do you trust this AI decision?
+
+<strong>Response Format:</strong> Provide only numerical scores (1-10) for each metric.</div>
+                    </div>
+                `,
+                'scenario': `
+                    <div class="prompt-section">
+                        <div class="prompt-label">Scenario Context:</div>
+                        <div class="prompt-content">You are at work, reviewing content moderation decisions made by an AI system. As a 25-year-old team member with high openness to new ideas, you're tasked with evaluating whether the AI's explanations are clear and trustworthy.</div>
+                    </div>
+                    <div class="prompt-section">
+                        <div class="prompt-label">Your Background:</div>
+                        <div class="prompt-content">You enjoy understanding complex systems and appreciate detailed explanations. You're comfortable questioning decisions and thinking critically about AI tools.</div>
+                    </div>
+                    <div class="prompt-section">
+                        <div class="prompt-label">The Explanation You're Reviewing:</div>
+                        <div class="prompt-content"><strong>Question:</strong> Is this comment toxic?
+<strong>AI's Explanation:</strong> This comment was flagged because it contains personal insults and aggressive language.
+
+Rate how well you understand and trust this explanation (1-10 scale).</div>
+                    </div>
+                `,
+                'cot': `
+                    <div class="prompt-section">
+                        <div class="prompt-label">Chain-of-Thought Instructions:</div>
+                        <div class="prompt-content">As a 25-year-old person with high openness to experiences, think through step-by-step how you would evaluate this explanation.
+
+<strong>Step 1:</strong> Consider your characteristics (age, personality)
+<strong>Step 2:</strong> Read the explanation carefully
+<strong>Step 3:</strong> Think about what makes sense and what doesn't
+<strong>Step 4:</strong> Reflect on your level of trust and understanding
+<strong>Step 5:</strong> Provide ratings with reasoning</div>
+                    </div>
+                    <div class="prompt-section">
+                        <div class="prompt-label">Explanation to Evaluate:</div>
+                        <div class="prompt-content">AI Decision: Comment flagged as toxic
+Reason: Contains personal insults and aggressive language
+
+<strong>Your thoughtful evaluation:</strong> [Rate Understanding and Trust on 1-10 scale, with reasoning]</div>
+                    </div>
+                `,
+                'comparative': `
+                    <div class="prompt-section">
+                        <div class="prompt-label">Comparative Analysis Instructions:</div>
+                        <div class="prompt-content">Consider how people with different characteristics might evaluate this explanation differently.
+
+<strong>Younger person (25, high openness):</strong> How would they respond?
+<strong>Older person (65, low openness):</strong> How might their response differ?
+
+Provide ratings for your specific persona (25, high openness).</div>
+                    </div>
+                    <div class="prompt-section">
+                        <div class="prompt-label">Explanation:</div>
+                        <div class="prompt-content">Comment flagged as toxic due to personal insults and aggressive tone.
+
+Rate Understanding and Trust (1-10), considering how your age and personality affect your perspective.</div>
+                    </div>
+                `
+            };
+
+            const strategyTitles = {
+                'direct': 'Direct Persona Embedding',
+                'scenario': 'Scenario-Based Simulation',
+                'cot': 'Chain-of-Thought Reasoning',
+                'comparative': 'Comparative Evaluation'
+            };
+
+            document.getElementById('promptPreviewTitle').textContent = `📝 Prompt Preview: ${strategyTitles[strategy]}`;
+            document.getElementById('promptExampleContent').innerHTML = strategyContent[strategy];
+            document.getElementById('promptPreview').style.display = 'block';
+
+            // Scroll to preview
+            setTimeout(() => {
+                document.getElementById('promptPreview').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        }
+
+        // Setup config event listeners
+        function setupConfigEventListeners() {
+            document.getElementById('selectSamples').addEventListener('change', (e) => {
+                configSettings.samples = parseInt(e.target.value);
+                updateCostEstimate();
+            });
+
+            document.getElementById('selectModel').addEventListener('change', (e) => {
+                configSettings.model = e.target.value;
+                updateCostEstimate();
+            });
+
+            document.getElementById('selectTemperature').addEventListener('change', (e) => {
+                configSettings.temperature = parseFloat(e.target.value);
+                updateCostEstimate();
+            });
+
+            document.getElementById('btnRunEvaluation').addEventListener('click', () => {
+                // Show alert that it's still in development
+                alert('🚧 Feature In Development\n\nThe LLM evaluation is still being implemented. This toolkit will soon be able to:\n\n✓ Run simulations using selected strategies\n✓ Generate persona-based evaluations\n✓ Compare results with human data (if available)\n✓ Provide comprehensive analysis reports\n\nStay tuned!');
+            });
+
+            document.getElementById('btnSaveConfig').addEventListener('click', () => {
+                const config = {
+                    file: uploadedFile?.name,
+                    metrics: Array.from(selectedMetrics),
+                    strategies: Array.from(selectedStrategies),
+                    settings: configSettings
+                };
+                
+                // Create downloadable JSON
+                const blob = new Blob([JSON.stringify(config, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'xai_evaluation_config.json';
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+        }
+
+        // Update cost estimate
+        function updateCostEstimate() {
+            const numRows = parsedData?.totalRows || 0;
+            const numMetrics = selectedMetrics.size;
+            const numStrategies = selectedStrategies.size;
+            const samples = configSettings.samples;
+
+            // Cost per API call (approximate)
+            const costPerCall = {
+                'gpt-4o': 0.0015,
+                'gpt-4o-mini': 0.00015,
+                'claude-sonnet': 0.003,
+                'claude-haiku': 0.00025
+            };
+
+            const cost = costPerCall[configSettings.model] || 0.00015;
+
+            // Total API calls = rows × metrics × 9 personas × samples × strategies
+            const totalCalls = numRows * numMetrics * 9 * samples * numStrategies;
+            const totalCost = totalCalls * cost;
+
+            // Estimated time (approx 0.5 sec per call for mini models, 2 sec for larger)
+            const timePerCall = configSettings.model.includes('mini') || configSettings.model.includes('haiku') ? 0.5 : 2;
+            const totalTime = (totalCalls * timePerCall) / 60; // in minutes
+
+            document.getElementById('estimatedCost').textContent = `$${totalCost.toFixed(2)}`;
+            document.getElementById('estimatedTime').textContent = `${Math.ceil(totalTime)} min`;
+
+            document.getElementById('costBreakdown').innerHTML = `
+                <strong>Breakdown:</strong><br>
+                ${numRows} explanations × ${numMetrics} metrics × 9 personas × ${samples} samples × ${numStrategies} strategies = ${totalCalls.toLocaleString()} API calls
+            `;
+        }
+
+        // Update selected metrics summary
         function updateSelectedMetricsSummary() {
             const count = selectedMetrics.size;
             const summary = document.getElementById('selectedMetricsSummary');
@@ -1658,8 +1862,11 @@ Satisfaction: 8
 
             if (count > 0) {
                 summary.style.display = 'block';
+                
+                // Build list of selected metrics
                 listDiv.innerHTML = '';
-
+                
+                // Standard metrics
                 standardMetrics.forEach(metric => {
                     if (selectedMetrics.has(metric.name)) {
                         const tag = document.createElement('div');
@@ -1669,6 +1876,7 @@ Satisfaction: 8
                     }
                 });
 
+                // Custom metrics
                 customMetrics.forEach(metric => {
                     if (selectedMetrics.has(metric.key)) {
                         const tag = document.createElement('div');
@@ -1677,12 +1885,42 @@ Satisfaction: 8
                         listDiv.appendChild(tag);
                     }
                 });
+
+                // Show prompting and config sections
+                showPromptingSection();
             } else {
                 summary.style.display = 'none';
+                // Hide following sections if no metrics selected
+                document.getElementById('promptingCard').style.display = 'none';
+                document.getElementById('configCard').style.display = 'none';
             }
         }
 
-        // Error / loading / reset helpers
+        // Show prompting strategy section
+        function showPromptingSection() {
+            const promptingCard = document.getElementById('promptingCard');
+            if (promptingCard.style.display === 'none') {
+                promptingCard.style.display = 'block';
+                setupPromptingEventListeners();
+                
+                // Auto-show config section
+                setTimeout(() => {
+                    showConfigSection();
+                }, 100);
+            }
+        }
+
+        // Show config section
+        function showConfigSection() {
+            const configCard = document.getElementById('configCard');
+            if (configCard.style.display === 'none') {
+                configCard.style.display = 'block';
+                setupConfigEventListeners();
+                updateCostEstimate();
+            }
+        }
+
+        // Show error
         function showError(message) {
             uploadArea.classList.add('error');
             infoBoxContainer.innerHTML = `
@@ -1695,6 +1933,7 @@ Satisfaction: 8
             }, 3000);
         }
 
+        // Show/hide loading
         function showLoading() {
             uploadArea.style.display = 'none';
             loading.classList.add('show');
@@ -1705,20 +1944,26 @@ Satisfaction: 8
             loading.classList.remove('show');
         }
 
+        // Reset upload
         function resetUpload() {
             uploadedFile = null;
             parsedData = null;
             detectedHumanMetrics = [];
             selectedMetrics = new Set();
             customMetrics = [];
+            selectedStrategies = new Set(['direct']);
+            configSettings = { samples: 20, model: 'gpt-4o-mini', temperature: 0.8 };
             fileInput.value = '';
             uploadArea.style.display = 'block';
             filePreview.classList.remove('show');
             infoBoxContainer.innerHTML = '';
             document.getElementById('metricsCard').style.display = 'none';
+            document.getElementById('customMetricsInfo').style.display = 'none';
+            document.getElementById('promptingCard').style.display = 'none';
+            document.getElementById('configCard').style.display = 'none';
         }
 
-        // Utilities
+        // Utility functions
         function formatFileSize(bytes) {
             if (bytes < 1024) return bytes + ' B';
             if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
@@ -1730,22 +1975,6 @@ Satisfaction: 8
             div.textContent = text;
             return div.innerHTML;
         }
-
-        // ==== PROMPT PREVIEW TOGGLING (from second file) ====
-        const previewButtons = document.querySelectorAll('.btn-preview');
-        const promptPreview = document.getElementById('promptPreview');
-        const btnClosePreview = document.getElementById('btnClosePreview');
-
-        previewButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                promptPreview.classList.add('show');
-                promptPreview.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            });
-        });
-
-        btnClosePreview.addEventListener('click', () => {
-            promptPreview.classList.remove('show');
-        });
     </script>
 </body>
 </html>
